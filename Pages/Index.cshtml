@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Rezervasyon</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-horizontal" method="post">
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookReservationViewModel.CheckOutDate)
+                    @Html.EditorFor(model => model.BookReservationViewModel.CheckOutDate,new { @class = "datepicker" ,id="CheckoutDate"})
+                    @Html.ValidationMessageFor(model => model.BookReservationViewModel.CheckOutDate)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BookReservationViewModel.ReturnDate)
+                    @Html.EditorFor(model => model.BookReservationViewModel.ReturnDate, new { @class = "datepicker",id="ReturnDate"})
+                    @Html.ValidationMessageFor(model => model.BookReservationViewModel.ReturnDate)
+                </div>
+                <div class="form-group">
+                    <label>Country:</label>
+                    <select name="BookReservationViewModel.CountryId" id="BookReservationViewModel.CountryId" asp-items="Model.CountryList"></select> 
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Hesapla</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Label("Business Day"):
+            @Html.DisplayTextFor(c => c.BookReservationViewModel.BusinessDay)
+            <br />
+            @Html.Label("Penalty Amout"):
+            @Html.DisplayTextFor(c => c.BookReservationViewModel.PenaltyAmount)
+            @Html.DisplayTextFor(c => c.BookReservationViewModel.CurrencyCode)
+        </div>
+    </div>
+</div>
+@section scripts{ 
+<script type="text/javascript">
+    $(function () {
+        $('#CheckoutDate').datepicker({
+            format: "dd/mm/yyyy"            
+        });
+          $('#ReturnDate').datepicker({
+            format: "dd/mm/yyyy"            
+        });
+    });
+</script>
+}
